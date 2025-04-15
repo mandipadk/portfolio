@@ -1,4 +1,3 @@
-'use client';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,7 +8,6 @@ import Navbar from '@/components/Navbar';
 import TableOfContents from '@/components/research/TableOfContents';
 import ResearchContent from '@/components/research/ResearchContent';
 import RelatedResearch from '@/components/research/RelatedResearch';
-import { useState } from 'react';
 
 interface ResearchPageProps {
   params: {
@@ -47,7 +45,6 @@ export default function ResearchPage({ params }: ResearchPageProps) {
   if (!research) {
     notFound();
   }
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const relatedProjects = getRelatedResearch(research.id);
   const readTime = Math.ceil(research.fullDescription.split(' ').length / 200); // Estimate read time based on word count
 
@@ -63,7 +60,7 @@ export default function ResearchPage({ params }: ResearchPageProps) {
         />
       </div>
 
-      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <Navbar isMenuOpen={false} setIsMenuOpen={() => {}} />
       
       <div className="relative z-10 container mx-auto px-4 py-10 max-w-6xl">
         {/* Back Button */}
