@@ -10,6 +10,7 @@ import TableOfContents from '@/components/research/TableOfContents';
 import ResearchContent from '@/components/research/ResearchContent';
 import RelatedResearch from '@/components/research/RelatedResearch';
 import { useState } from 'react';
+
 interface ResearchPageProps {
   params: {
     slug: string;
