@@ -965,6 +965,8 @@ export default function Home() {
                   <motion.a
                     key={i}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-neutral-400 hover:text-white transition-colors"
                     whileHover={{ y: -2 }}
                     initial={{ opacity: 0, y: 20 }}
