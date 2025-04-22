@@ -11,7 +11,7 @@ import 'prismjs/components/prism-tsx';
 import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-python';
 import { CalendarIcon, TagIcon, ClockIcon } from 'lucide-react';
-import { format } from 'date-fns';
+import { format, isValid } from 'date-fns';
 
 interface ContentSection {
   title: string;
@@ -48,6 +48,13 @@ const ResearchContent: React.FC<ResearchContentProps> = ({
     visible: { opacity: 1, y: 0 }
   };
 
+  // Format date safely
+  const formatDate = (dateString: string) => {
+    if (!dateString) return '';
+    const dateObj = new Date(dateString);
+    return isValid(dateObj) ? format(dateObj, 'MMMM d, yyyy') : '';
+  };
+
   return (
     <motion.article 
       className="research-content w-full max-w-4xl"
@@ -74,26 +81,34 @@ const ResearchContent: React.FC<ResearchContentProps> = ({
           className="flex flex-wrap gap-4 text-sm text-white/60"
           variants={fadeInUp}
         >
-          <div className="flex items-center">
-            <CalendarIcon className="w-4 h-4 mr-2" />
-            {format(new Date(date), 'MMMM d, yyyy')}
-          </div>
-          <div className="flex items-center">
-            <ClockIcon className="w-4 h-4 mr-2" />
-            {estimatedReadTime} min read
-          </div>
-          <div className="flex items-center">
-            <TagIcon className="w-4 h-4 mr-2" />
-            {category}
-          </div>
+          {date && (
+            <div className="flex items-center">
+              <CalendarIcon className="w-4 h-4 mr-2" />
+              {formatDate(date)}
+            </div>
+          )}
+          {estimatedReadTime > 0 && (
+            <div className="flex items-center">
+              <ClockIcon className="w-4 h-4 mr-2" />
+              {estimatedReadTime} min read
+            </div>
+          )}
+          {category && (
+            <div className="flex items-center">
+              <TagIcon className="w-4 h-4 mr-2" />
+              {category}
+            </div>
+          )}
         </motion.div>
 
-        <motion.div 
-          className="mt-4 text-white/60"
-          variants={fadeInUp}
-        >
-          By {author}
-        </motion.div>
+        {author && (
+          <motion.div 
+            className="mt-4 text-white/60"
+            variants={fadeInUp}
+          >
+            By {author}
+          </motion.div>
+        )}
       </header>
 
       <div className="content">

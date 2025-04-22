@@ -46,7 +46,7 @@ export default function ResearchPage() {
               </h1>
             </div>
             <p className="text-2xl md:text-3xl text-white/60 font-light max-w-3xl">
-              Exploring quantum computing, computational dimensions, and their practical applications.
+              Exploring machine learning, algorithm design, quantum computing, and their practical applications.
             </p>
             <div className="h-px w-1/3 bg-sky-500/20 mt-6"></div>
           </div>

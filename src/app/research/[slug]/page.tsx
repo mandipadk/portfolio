@@ -1,3 +1,5 @@
+'use client';
+
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,6 +10,7 @@ import Navbar from '@/components/Navbar';
 import TableOfContents from '@/components/research/TableOfContents';
 import ResearchContent from '@/components/research/ResearchContent';
 import RelatedResearch from '@/components/research/RelatedResearch';
+import { useState, use } from 'react';
 
 interface ResearchPageProps {
   params: {
@@ -15,36 +18,39 @@ interface ResearchPageProps {
   };
 }
 
-export async function generateMetadata({ params }: ResearchPageProps): Promise<Metadata> {
-  const research = getResearchBySlug(await params.slug);
-  
-  if (!research) {
-    return {
-      title: 'Research Not Found',
-      description: 'The requested research project could not be found.'
-    };
-  }
-  
-  return {
-    title: `${research.title} | Research`,
-    description: research.shortDescription,
-  };
-}
+// export async function generateMetadata(props: ResearchPageProps): Promise<Metadata> {
+//   const params = await props.params;
+//   const research = getResearchBySlug(await params.slug);
 
-export async function generateStaticParams() {
-  const researches = getAllResearch();
-  
-  return researches.map((research) => ({
-    slug: research.slug,
-  }));
-}
+//   if (!research) {
+//     return {
+//       title: 'Research Not Found',
+//       description: 'The requested research project could not be found.'
+//     };
+//   }
 
-    export default async function ResearchPage({ params }: ResearchPageProps) {
-  const research = getResearchBySlug(await params.slug);
+//   return {
+//     title: `${research.title} | Research`,
+//     description: research.shortDescription,
+//   };
+// }
+
+// export async function generateStaticParams() {
+//   const researches = getAllResearch();
+  
+//   return researches.map((research) => ({
+//     slug: research.slug,
+//   }));
+// }
+
+export default function ResearchPage({ params }: ResearchPageProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const research = getResearchBySlug(params.slug);
   
   if (!research) {
     notFound();
   }
+  
   const relatedProjects = getRelatedResearch(research.id);
   const readTime = Math.ceil(research.fullDescription.split(' ').length / 200); // Estimate read time based on word count
 
@@ -60,7 +66,7 @@ export async function generateStaticParams() {
         />
       </div>
 
-      <Navbar isMenuOpen={false} setIsMenuOpen={() => {}} />
+      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       
       <div className="relative z-10 container mx-auto px-4 py-10 max-w-6xl">
         {/* Back Button */}
@@ -126,7 +132,14 @@ export async function generateStaticParams() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
           {/* Main Content */}
           <div>
-            <ResearchContent content={research.content} title={''} date={''} author={''} estimatedReadTime={0} category={''} />
+            <ResearchContent 
+              content={research.content} 
+              title={research.title} 
+              date={research.date} 
+              author="Mandip Adhikari" 
+              estimatedReadTime={readTime} 
+              category={research.tags[0] || ''} 
+            />
             
             {/* References */}
             {research.references && research.references.length > 0 && (

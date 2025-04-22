@@ -34,7 +34,7 @@ const researchProjects: ResearchProject[] = [
     fullDescription: "This research investigates the intersection of quantum computing and machine learning, focusing on how quantum algorithms can provide exponential speedup for specific ML tasks and create entirely new approaches to pattern recognition and data analysis.",
     date: "2023-06-15",
     tags: ["Quantum Computing", "Machine Learning", "AI", "Quantum Algorithms"],
-    image: "/research/quantum-ml.jpg",
+    image: "/research-5.jpg",
     content: {
       sections: [
         {
@@ -84,7 +84,7 @@ const researchProjects: ResearchProject[] = [
     fullDescription: "This research explores how extending computational models into complex number spaces and higher-dimensional constructs can lead to novel algorithms and more efficient solutions to previously intractable problems.",
     date: "2023-09-28",
     tags: ["Computational Theory", "Complex Numbers", "Higher Dimensions", "Algorithm Design"],
-    image: "/research/computational-dimensions.jpg",
+    image: "/research-2.jpg",
     content: {
       sections: [
         {
@@ -137,7 +137,7 @@ const researchProjects: ResearchProject[] = [
     fullDescription: "This research focuses on practical quantum algorithm optimization techniques that enable meaningful quantum advantage even on noisy intermediate-scale quantum (NISQ) devices available today.",
     date: "2023-12-01",
     tags: ["Quantum Computing", "Algorithm Optimization", "NISQ", "Quantum Circuits"],
-    image: "/research/quantum-optimization.jpg",
+    image: "/research-3.jpg",
     content: {
       sections: [
         {

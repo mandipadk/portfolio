@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
 import TableOfContents from './TableOfContents';
@@ -26,8 +27,8 @@ const ResearchLayout: React.FC<ResearchLayoutProps> = ({
   date,
   author,
   content,
-  estimatedReadTime = '5 min read',
-  category = 'Research'
+  estimatedReadTime,
+  category
 }) => {
   return (
     <div className="research-layout w-full min-h-screen bg-black/90 text-white pt-24">
