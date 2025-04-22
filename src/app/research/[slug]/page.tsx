@@ -16,7 +16,7 @@ interface ResearchPageProps {
 }
 
 export async function generateMetadata({ params }: ResearchPageProps): Promise<Metadata> {
-  const research = getResearchBySlug(params.slug);
+  const research = getResearchBySlug(await params.slug);
   
   if (!research) {
     return {
@@ -39,8 +39,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ResearchPage({ params }: ResearchPageProps) {
-  const research = getResearchBySlug(params.slug);
+    export default async function ResearchPage({ params }: ResearchPageProps) {
+  const research = getResearchBySlug(await params.slug);
   
   if (!research) {
     notFound();

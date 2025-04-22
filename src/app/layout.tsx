@@ -3,6 +3,7 @@ import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Toaster } from 'sonner';
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en" className={`${spaceGrotesk.variable}`}>
       <body className="font-sans antialiased bg-neutral-950">
         {children}
+        <Analytics />
         <Toaster 
           position="bottom-right"
           expand={false}
