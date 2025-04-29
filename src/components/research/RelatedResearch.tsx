@@ -11,7 +11,7 @@ interface RelatedResearchProps {
 
 const RelatedResearch: React.FC<RelatedResearchProps> = ({ projects }) => {
   if (!projects || projects.length === 0) return null;
-
+    
   return (
     <div className="related-research py-4 px-6 bg-white/5 backdrop-blur-sm rounded-xl">
       <h3 className="text-lg font-medium mb-6 text-white/80">Related Research</h3>
@@ -52,8 +52,8 @@ const RelatedResearch: React.FC<RelatedResearchProps> = ({ projects }) => {
               </div>
             </Link>
           </motion.div>
-        ))}
-      </div>
+            ))}
+        </div>
     </div>
   );
 };

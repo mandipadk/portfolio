@@ -32,7 +32,7 @@ const researchProjects: ResearchProject[] = [
     title: "Quantum Computing Applications in Machine Learning",
     shortDescription: "Exploring how quantum computing can enhance machine learning algorithms and create new paradigms for AI advancement.",
     fullDescription: "This research investigates the intersection of quantum computing and machine learning, focusing on how quantum algorithms can provide exponential speedup for specific ML tasks and create entirely new approaches to pattern recognition and data analysis.",
-    date: "2023-06-15",
+    date: "2024-04-25",
     tags: ["Quantum Computing", "Machine Learning", "AI", "Quantum Algorithms"],
     image: "/research-5.jpg",
     content: {
@@ -77,6 +77,30 @@ const researchProjects: ResearchProject[] = [
     ]
   },
   {
+    id: "ga-for-machine-learning",
+    slug: "ga-for-machine-learning",
+    title: "Genetic Algorithms for Hyper Parameter Tuning in Machine Learning",
+    shortDescription: "Exploring the possiblity of using genetic algorithms to optimize hyper-parameter tuning for machine learning models.",
+    fullDescription: "This research explores the use of genetic algorithms to optimize hyper-parameter tuning for machine learning models. We use the latest in genetic algorithm research to create a system that can find the best hyper-parameters for a given machine learning model.",
+    date: "2024-04-20",
+    tags: ["Genetic Algorithms", "Machine Learning", "Hyper-parameter Tuning"],
+    image: "/research-2.jpg",
+    content: {
+      sections: [
+        {
+          title: "Introduction",
+          content: "Genetic algorithms are a type of evolutionary algorithm that can be used to optimize hyper-parameter tuning for machine learning models. We use the latest in genetic algorithm research to create a system that can find the best hyper-parameters for a given machine learning model."
+        },
+        {
+          title: "Genetic Algorithm Optimization",
+          content: "We use the latest in genetic algorithm research to create a system that can find the best hyper-parameters for a given machine learning model.",
+          visualType: "graph",
+          visual: "/research/ga-for-machine-learning.svg"
+        }
+      ]
+    }
+  },
+  {
     id: "computational-dimensions",
     slug: "computational-dimensions",
     title: "Exploring Complex Computational Dimensions",
@@ -84,7 +108,7 @@ const researchProjects: ResearchProject[] = [
     fullDescription: "This research explores how extending computational models into complex number spaces and higher-dimensional constructs can lead to novel algorithms and more efficient solutions to previously intractable problems.",
     date: "2023-09-28",
     tags: ["Computational Theory", "Complex Numbers", "Higher Dimensions", "Algorithm Design"],
-    image: "/research-2.jpg",
+    image: "/research-4.jpg",
     content: {
       sections: [
         {
@@ -181,7 +205,7 @@ const researchProjects: ResearchProject[] = [
       }
     ],
     relatedProjects: ["quantum-ml", "computational-dimensions"]
-  }
+  },
 ];
 
 export function getAllResearch(): ResearchProject[] {

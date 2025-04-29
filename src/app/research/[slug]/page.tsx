@@ -10,38 +10,13 @@ import Navbar from '@/components/Navbar';
 import TableOfContents from '@/components/research/TableOfContents';
 import ResearchContent from '@/components/research/ResearchContent';
 import RelatedResearch from '@/components/research/RelatedResearch';
-import { useState, use } from 'react';
+import { useState } from 'react';
 
 interface ResearchPageProps {
   params: {
     slug: string;
   };
 }
-
-// export async function generateMetadata(props: ResearchPageProps): Promise<Metadata> {
-//   const params = await props.params;
-//   const research = getResearchBySlug(await params.slug);
-
-//   if (!research) {
-//     return {
-//       title: 'Research Not Found',
-//       description: 'The requested research project could not be found.'
-//     };
-//   }
-
-//   return {
-//     title: `${research.title} | Research`,
-//     description: research.shortDescription,
-//   };
-// }
-
-// export async function generateStaticParams() {
-//   const researches = getAllResearch();
-  
-//   return researches.map((research) => ({
-//     slug: research.slug,
-//   }));
-// }
 
 export default function ResearchPage({ params }: ResearchPageProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,14 +31,19 @@ export default function ResearchPage({ params }: ResearchPageProps) {
 
   return (
     <main className="relative min-h-screen bg-black text-white">
-      {/* Abstract Background */}
-      <div className="fixed inset-0 bg-black z-0">
-        <div className="absolute inset-0 opacity-30"
-             style={{
-               backgroundImage: 'radial-gradient(circle at 25% 25%, rgba(56, 189, 248, 0.1) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)',
-               backgroundSize: '100% 100%',
-             }}
-        />
+      {/* Enhanced Background Elements */}
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,1)_0%,rgba(0,0,0,0.9)_100%)] z-0">
+        {/* Subtle Grid Background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        
+        {/* Quantum Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(56,189,248,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(56,189,248,0.03)_1px,transparent_1px)] bg-[size:8rem_8rem]" />
+
+        {/* Accent Glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_100%_200px,rgba(56,189,248,0.12),transparent)]" />
+        
+        {/* Secondary Accent */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_0%_80%,rgba(168,85,247,0.08),transparent)]" />
       </div>
 
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
