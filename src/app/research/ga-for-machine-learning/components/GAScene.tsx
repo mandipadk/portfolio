@@ -437,6 +437,18 @@ const Html: React.FC<HtmlProps> = ({ children, position }) => {
   );
 };
 
+const infoSection: React.FC = () => {
+    return (
+        <div className="absolute bottom-4 right-4 p-4 rounded-lg border border-white/10 bg-white/[0.02] backdrop-blur-sm max-w-md">
+            <h3 className="text-lg font-light mb-2">Interactive Visualization</h3>
+            <p className="text-white/70 text-sm">
+              This 3D model represents genetic algorithm population evolution with each sphere as a solution (parameter set).
+              Colors, sizes, and positions show different aspects of the solutions through generations.
+            </p>
+        </div>
+    )
+}
+
 // Main exported component
 export const GAScene: React.FC = () => {
   return (

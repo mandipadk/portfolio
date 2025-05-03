@@ -1,16 +1,15 @@
 'use client';
 
-import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react';
-import { getAllResearch, getRelatedResearch, getResearchBySlug } from '@/data/research';
+import { getAllResearch, getRelatedResearch, getResearchBySlug, ResearchProject } from '@/data/research';
 import Navbar from '@/components/Navbar';
 import TableOfContents from '@/components/research/TableOfContents';
 import ResearchContent from '@/components/research/ResearchContent';
 import RelatedResearch from '@/components/research/RelatedResearch';
-import { useState } from 'react';
+import {useState, useEffect} from 'react';
 
 interface ResearchPageProps {
   params: {
@@ -18,16 +17,60 @@ interface ResearchPageProps {
   };
 }
 
-export default function ResearchPage({ params }: ResearchPageProps) {
+export default function ResearchPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const research = getResearchBySlug(params.slug);
+  const params = useParams(); // Hook to get route parameters
+  // State to hold the fetched data and loading status
+  const [research, setResearch] = useState<ResearchProject | null>(null);
+  const [relatedProjects, setRelatedProjects] = useState<ResearchProject[]>([]);
+  const [readTime, setReadTime] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+
+  // Extract slug, ensuring it's a string
+  const slug = typeof params.slug === 'string' ? params.slug : null;
+
+  useEffect(() => {
+    // Only fetch if slug is a valid string
+    if (slug) {
+      setIsLoading(true); // Set loading true when starting fetch
+      const foundResearch = getResearchBySlug(slug);
+
+      if (!foundResearch) {
+        notFound(); // Call Next.js notFound helper
+      } else {
+        setResearch(foundResearch);
+        setRelatedProjects(getRelatedResearch(foundResearch.id));
+        setReadTime(foundResearch.fullDescription ? Math.ceil(foundResearch.fullDescription.split(' ').length / 200) : 0);
+        setIsLoading(false); // Set loading false after data is processed
+      }
+    } else if (params.slug !== undefined) {
+       // If params.slug exists but isn't a string (e.g. string[]), it's an error case
+       notFound();
+    }
+     // If slug is initially null/undefined, effect runs, does nothing,
+     // then re-runs when params object updates with the actual slug.
+
+  }, [slug, params.slug]); // Dependency array: re-run effect if slug changes
+
+  // Render loading state
+  if (isLoading) {
+    return (
+        <main className="relative min-h-screen bg-black text-white flex items-center justify-center">
+            {/* You might want Navbar even during loading */}
+            <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+            <div className="relative z-10">Loading Research Data...</div>
+            {/* Add background elements if desired */}
+        </main>
+    );
+  }
+
   
   if (!research) {
     notFound();
   }
   
-  const relatedProjects = getRelatedResearch(research.id);
-  const readTime = Math.ceil(research.fullDescription.split(' ').length / 200); // Estimate read time based on word count
+  // const relatedProjects = getRelatedResearch(research.id);
+  // const readTime = Math.ceil(research.fullDescription.split(' ').length / 200); // Estimate read time based on word count
 
   return (
     <main className="relative min-h-screen bg-black text-white">
@@ -46,7 +89,7 @@ export default function ResearchPage({ params }: ResearchPageProps) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_0%_80%,rgba(168,85,247,0.08),transparent)]" />
       </div>
 
-      <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <Navbar isMenuOpen={false} setIsMenuOpen={()=>{}}/>
       
       <div className="relative z-10 container mx-auto px-4 py-10 max-w-6xl">
         {/* Back Button */}
