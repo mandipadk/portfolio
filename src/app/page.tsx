@@ -1,17 +1,23 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Twitter, ExternalLink, Mail, ArrowUpRight, Instagram, Contact } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Github, Linkedin, Twitter, ExternalLink, Mail, ArrowUpRight, Instagram } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import About from '@/components/About';
 import Projects from '@/components/Projects';
 import Footer from '@/components/Footer';
 import ContactForm from '@/components/ContactForm';
-import ResumeViewer from '@/components/ResumeViewer';
+
+const ResumeViewer = dynamic(() => import('@/components/ResumeViewer'), { ssr: false });
 
 // Particle System Component
 const ParticleSystem = () => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
   const particles = [...Array(20)].map((_, i) => ({
     id: i,
     x: Math.random() * 100,
@@ -444,12 +450,12 @@ const QuantumOverlay = ({ isVisible }: { isVisible: boolean }) => (
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
-  const backgroundY = useTransform(scrollY, [0, 500], [0, 150]);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [symbolSequence, setSymbolSequence] = useState<string[]>([]);
   const [showSpecialEffect, setShowSpecialEffect] = useState(false);
-  const correctSequence = ['quantum', 'dimensions'];
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const correctSequence = ['ai-eval', 'ml-systems'];
 
   const handleConceptClick = (concept: string) => {
     console.log('Concept clicked:', concept);
@@ -486,6 +492,7 @@ export default function Home() {
         {/* Subtle Grid Background */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
+        {mounted && (
         <div className="absolute inset-0">
           {/* Quantum Wave Function Collapse */}
           <motion.div className="absolute right-[12%] top-[25%]">
@@ -848,6 +855,7 @@ export default function Home() {
             </motion.div>
           </motion.div>
         </div>
+        )}
       </div>
 
       <Navbar 
@@ -909,7 +917,7 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
               >
-                Beyond development, I explore the fascinating world of machine learning, quantum theories and computational dimensions, trying to combine complex theoretical concepts into practical solutions.
+                Beyond shipping product, I&apos;m drawn to the systems behind AI — search evaluation, preference-learning loops, and the math that makes ML scale in production.
               </motion.p>
             </div>
 
@@ -931,25 +939,25 @@ export default function Home() {
                 <div className="h-px w-full md:w-px md:h-8 bg-neutral-800" />
                 <div className="text-neutral-400 text-base font-light">
                   Currently exploring{' '}
-                  <motion.button 
-                    onClick={() => handleConceptClick('quantum')}
+                  <motion.button
+                    onClick={() => handleConceptClick('ai-eval')}
                     className="text-white hover:text-neutral-400 transition-colors inline-flex items-center gap-2 bg-transparent border-none cursor-pointer"
                     whileHover={{ x: 2 }}
                   >
-                    quantum computing
+                    AI evaluation
                     <span className={`block w-1 h-1 rounded-full ${
-                      symbolSequence.includes('quantum') ? 'bg-sky-400' : 'bg-teal-400'
+                      symbolSequence.includes('ai-eval') ? 'bg-sky-400' : 'bg-teal-400'
                     }`} />
                   </motion.button>
                   <span className="text-neutral-400"> and </span>
-                  <motion.button 
-                    onClick={() => handleConceptClick('dimensions')}
+                  <motion.button
+                    onClick={() => handleConceptClick('ml-systems')}
                     className="text-white hover:text-neutral-400 transition-colors inline-flex items-center gap-2 bg-transparent border-none cursor-pointer"
                     whileHover={{ x: 2 }}
                   >
-                    computational dimensions
+                    ML systems
                     <span className={`block w-1 h-1 rounded-full ${
-                      symbolSequence.includes('dimensions') ? 'bg-purple-400' : 'bg-teal-400'
+                      symbolSequence.includes('ml-systems') ? 'bg-purple-400' : 'bg-teal-400'
                     }`} />
                   </motion.button>
                 </div>
@@ -1000,7 +1008,7 @@ export default function Home() {
             />
 
             <div className="relative h-full flex items-center px-6 md:px-12">
-              <div className="w-full max-w-screen-xl mx-auto grid md:grid-cols-[1.5fr,1fr] gap-20">
+              <div className="w-full max-w-screen-xl mx-auto grid md:grid-cols-[1.5fr_1fr] gap-20">
                 <nav className="space-y-8">
                   {[
                     { name: 'about', desc: 'know me better' },

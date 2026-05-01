@@ -120,7 +120,7 @@ export default function Contact() {
           />
         </motion.h2>
 
-        <div className="grid md:grid-cols-[1fr,1.5fr] gap-12 md:gap-24">
+        <div className="grid md:grid-cols-[1fr_1.5fr] gap-12 md:gap-24">
           {/* Contact Info */}
           <div className="space-y-12">
             <motion.p

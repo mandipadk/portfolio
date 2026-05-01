@@ -42,9 +42,10 @@ export default function Footer() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <p className="text-white/60 text-base font-light flex items-center gap-2">
-              Built with 
-              <motion.div
+            <span className="text-white/60 text-base font-light flex items-center gap-2">
+              Built with
+              <motion.span
+                className="inline-flex"
                 animate={{
                   scale: [1, 1.2, 1],
                 }}
@@ -55,9 +56,9 @@ export default function Footer() {
                 }}
               >
                 <Heart className="w-4 h-4 text-sky-500/80" />
-              </motion.div>
+              </motion.span>
               by
-              <motion.span 
+              <motion.span
                 className="text-white/90 relative group"
                 whileHover={{ color: 'rgb(56 189 248 / 0.8)' }}
               >
@@ -67,7 +68,7 @@ export default function Footer() {
                   transition={{ duration: 0.3 }}
                 />
               </motion.span>
-            </p>
+            </span>
           </motion.div>
 
           <div className="flex items-center gap-6">

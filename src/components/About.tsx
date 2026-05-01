@@ -1,14 +1,15 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 
 export default function About() {
   const containerRef = useRef<HTMLElement>(null);
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const [isImageHovered, setIsImageHovered] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "center center"]
@@ -26,7 +27,7 @@ export default function About() {
     },
     {
       category: "Backend",
-      items: ["Node.js", "Python", "Go", "GraphQL"]
+      items: ["Node.js", "Python", "FastAPI", "Go"]
     },
     {
       category: "Database",
@@ -34,26 +35,26 @@ export default function About() {
     },
     {
       category: "DevOps",
-      items: ["AWS", "Docker", "CI/CD", "Kubernetes"]
+      items: ["GCP", "AWS", "Docker", "CI/CD"]
     }
   ];
 
   const experiences = [
     {
-      period: "February 2024 - Present",
-      role: "Project Specialist",
-      company: "Office of Institutional Effectiveness, USM",
-      description: "Consolidated degree requirements for 50+ programs into a streamlined format, digitized 500+ faculty transcripts into a searchable database, and coordinated accurate SACSCOC accreditation data analysis with a team."
+      period: "February 2025 - Present",
+      role: "Software Developer & Team Lead",
+      company: "Aquaview (IAAS) — University of Southern Mississippi",
+      description: "Lead the data infrastructure for a production oceanographic platform. Built a streaming statistical pipeline for 10M+ observation records, a from-scratch OAuth2/OIDC identity provider (PKCE, RS256, JS SDK) powering 15 endpoints across team apps, and a GCP Cloud Run tile server serving 268K+ COG/STAC/Zarr datasets with tuned GDAL caching and HTTP/2."
     },
     {
-      period: "May 2022 - August 2022",
-      role: "Student Intern",
-      company: "Nobel Explorers",
-      description: "Led UI/UX workshops improving web design skills by 40%, developed an interactive cafe website, and mentored 25+ interns in practical UI/UX design."
+      period: "October 2025 - December 2025",
+      role: "Software Engineering Intern",
+      company: "ArroyoDev (Illumibot)",
+      description: "Shipped media-pipeline work on an AI projector platform. Profiled the segmentation engine and cut processing overhead by 40% to hit real-time on projector workloads, built a frame-accurate FFmpeg xfade transition system for multi-clip chaining, and hardened the mobile↔inference API with batching, timeouts, and retries — dropping service failures by 30%."
     }
   ];
 
-  const glowVariants = {
+  const glowVariants: Variants = {
     initial: {
       opacity: 0,
       scale: 0.95,
@@ -111,7 +112,7 @@ export default function About() {
         className="relative w-full px-6 md:px-12 transition-all duration-700"
       >
         <div className="max-w-screen-xl mx-auto">
-          <div className="grid md:grid-cols-[1fr,1.5fr] gap-12 md:gap-24">
+          <div className="grid md:grid-cols-[1fr_1.5fr] gap-12 md:gap-24">
             {/* Left Column */}
             <div className="space-y-12">
               <motion.h2 
@@ -133,7 +134,7 @@ export default function About() {
 
               {/* Modern Profile Card */}
               <motion.div
-                className="relative aspect-square rounded-xl overflow-hidden group"
+                className="relative aspect-square w-full max-w-sm md:max-w-none rounded-xl overflow-hidden group"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -158,6 +159,7 @@ export default function About() {
                     src="/self.png"
                     alt="Mandip Adhikari"
                     fill
+                    sizes="(min-width: 768px) 40vw, 100vw"
                     className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                     priority
                   />
@@ -169,8 +171,8 @@ export default function About() {
                     animate={{ opacity: isImageHovered ? 1 : 0 }}
                     transition={{ duration: 0.4 }}
                   >
-                    {/* Interactive Particles */}
-                    {[...Array(15)].map((_, i) => (
+                    {/* Interactive Particles — client-only to avoid hydration mismatch from Math.random */}
+                    {mounted && [...Array(15)].map((_, i) => (
                       <motion.div
                         key={i}
                         className="absolute w-1 h-1 bg-sky-500/40 rounded-full"
@@ -206,8 +208,9 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
               >
-                I'm a full-stack developer with a passion for building innovative solutions 
-                that bridge the gap between complex theoretical concepts and practical applications.
+                I&apos;m a full-stack developer who works at the seam between AI/ML systems and the
+                infrastructure that keeps them honest in production — data pipelines, identity, search
+                evaluation, and the math that makes models actually scale.
               </motion.p>
 
               {/* Skills Grid - Restored Previous Design */}

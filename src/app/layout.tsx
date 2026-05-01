@@ -17,7 +17,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Mandip Adhikari",
-  description: "Exploring why dimensional spaces are stuck playing with real numbers when computational complex dimensions are right there, begging to be noticed.",
+  description: "Full-stack developer working on AI/ML systems, search evaluation, and the data infrastructure that keeps them honest in production.",
 };
  
 export default function RootLayout({
@@ -26,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable}`}>
-      <body className="font-sans antialiased bg-neutral-950">
+    <html lang="en" className={`relative ${spaceGrotesk.variable}`}>
+      <body className="relative font-sans antialiased bg-neutral-950">
         {children}
         <Analytics />
         <Toaster 

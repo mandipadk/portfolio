@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { useRef, useState, useMemo } from 'react';
+import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
+import { useRef, useState } from 'react';
 import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 
@@ -27,6 +27,33 @@ export default function Projects() {
   });
 
   const projects: Project[] = [
+    {
+      title: "Searchprobe",
+      description: "An adversarial benchmarking framework for neural search engines (Exa, Tavily, Brave, SerpAPI). 13 embedding-theory-grounded attack categories, 70+ adversarial test pairs, LLM-as-judge scoring, and statistical rigor (bootstrap CIs, Benjamini-Hochberg correction) — surfacing where production search actually fails on negation and numeric queries.",
+      tech: ["Python", "Streamlit", "Pydantic", "pytest", "LLM-as-judge"],
+      links: {
+        github: "https://github.com/mandipadk/searchprobe"
+      },
+      featured: true
+    },
+    {
+      title: "NEPL-LM",
+      description: "A never-ending preference-learning loop for LLMs: feedback collection → semantic deduplication → SFT/DPO adapter distillation → inference server. Designed to update a model hourly without full retrains, treating model behavior like a product that ships every sprint instead of every quarter.",
+      tech: ["Python", "FastAPI", "SFT/DPO", "Semantic Dedup", "CLI"],
+      links: {
+        github: "https://github.com/mandipadk/nepl-lm"
+      },
+      featured: true
+    },
+    {
+      title: "Optimal Transport Studio",
+      description: "A browser-native Sinkhorn solver running ε-regularized optimal transport with log-domain stabilization and ε-annealing — entirely in the browser via WebGPU. Handles 512×512 grids (262,144 points) at interactive speeds, 3–8× faster than the naive path and stable at very small ε.",
+      tech: ["JavaScript", "WebGPU", "Typed Arrays", "Sinkhorn"],
+      links: {
+        github: "https://github.com/mandipadk/optimal-transport-studio"
+      },
+      featured: true
+    },
     {
       title: "Enygma",
       description: "A sophisticated puzzle-solving platform featuring 10 progressively challenging puzzles. Implements state-of-the-art security measures and anti-cheating systems to ensure fair gameplay and authentic problem-solving experiences.",
@@ -102,7 +129,7 @@ export default function Projects() {
   const visibleProjects = showAllProjects ? projects : projects.filter(p => p.featured);
 
   // Add keyframes for the glow animation
-  const glowVariants = {
+  const glowVariants: Variants = {
     initial: {
       opacity: 0,
       scale: 0.98,
@@ -191,7 +218,7 @@ export default function Projects() {
                       hover:shadow-[0_0_30px_-5px_rgba(56,189,248,0.15)]"
                   >
                     <div className="relative p-8 md:p-12">
-                      <div className="grid md:grid-cols-[1.5fr,1fr] gap-12">
+                      <div className="grid md:grid-cols-[1.5fr_1fr] gap-12">
                         {/* Project Content */}
                         <div className="space-y-8">
                           <div className="space-y-4">
@@ -337,8 +364,8 @@ export default function Projects() {
                         </div>
 
                         {/* Project Visual */}
-                        <motion.div 
-                          className="relative aspect-[4/3] rounded-lg overflow-hidden bg-neutral-900/50"
+                        <motion.div
+                          className="relative aspect-[4/3] w-full max-w-md md:max-w-none rounded-lg overflow-hidden bg-neutral-900/50"
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
@@ -351,6 +378,7 @@ export default function Projects() {
                                 src={project.image}
                                 alt={project.title}
                                 fill
+                                sizes="(min-width: 768px) 40vw, 100vw"
                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                               />
                               <div className="absolute inset-0 bg-neutral-900/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
