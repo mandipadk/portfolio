@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { motion, type Variants } from 'framer-motion';
+import { useState } from 'react';
 import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 
@@ -18,15 +18,28 @@ interface Project {
 }
 
 export default function Projects() {
-  const containerRef = useRef<HTMLElement>(null);
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const [showAllProjects, setShowAllProjects] = useState(false);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"]
-  });
 
   const projects: Project[] = [
+    {
+      title: "Kavi",
+      description: "A CLI tool that orchestrates multiple AI coding agents (Codex + Claude Code) running in parallel. Maintains a persistent Brain knowledge base across sessions, enforces approval gates on every agentic action, runs shadow missions for strategy comparison, and manages worktree-based branch isolation per task. Built to handle the coordination problem that emerges when more than one agent can touch a codebase.",
+      tech: ["TypeScript", "Node.js", "CLI", "Git worktrees", "Multi-agent", "Process management", "JSON persistence"],
+      links: {
+        github: "https://github.com/mandipadk/kavi"
+      },
+      featured: true
+    },
+    {
+      title: "Bioresearch",
+      description: "Autonomous overnight ML research pipeline. Claude proposes protein interaction modifications, Modal dispatches experiments to H200 GPUs, a 5-seed Welch's t-test validates each result, and a keep/revert state machine decides whether to commit the change — all without human intervention. Runs ~12 experiments/hour on infrastructure spanning Modal, Colab, FastAPI, a Gradio dashboard, a full CLI, and 38 tests.",
+      tech: ["Python", "Modal", "Colab", "FastAPI", "Gradio", "pytest", "Claude API", "H200 GPUs", "Statistical testing"],
+      links: {
+        github: "https://github.com/mandipadk/bioresearch"
+      },
+      featured: true
+    },
     {
       title: "Searchprobe",
       description: "An adversarial benchmarking framework for neural search engines (Exa, Tavily, Brave, SerpAPI). 13 embedding-theory-grounded attack categories, 70+ adversarial test pairs, LLM-as-judge scoring, and statistical rigor (bootstrap CIs, Benjamini-Hochberg correction) — surfacing where production search actually fails on negation and numeric queries.",
@@ -59,44 +72,35 @@ export default function Projects() {
       description: "A sophisticated puzzle-solving platform featuring 10 progressively challenging puzzles. Implements state-of-the-art security measures and anti-cheating systems to ensure fair gameplay and authentic problem-solving experiences.",
       tech: ["Next.js", "TypeScript", "TailwindCSS", "Prisma", "PostgreSQL", "Redis"],
       links: {
-        // github: "https://github.com/yourusername/enygma",
         live: "https://enygm.com"
       },
-      image: "/enygma.png",
-      featured: true
+      image: "/enygma.png"
     },
     {
       title: "Evoloke",
       description: "A modern text-based RPG platform enabling authors to publish interactive stories. Features comprehensive admin and author dashboards, advanced story creation tools with visualization capabilities, and an immersive user experience.",
       tech: ["React", "Node.js", "PostgreSQL", "Supabase", "TailwindCSS", "Redis"],
       links: {
-        // github: "https://github.com/mandipadk/evoloke",
         live: "https://evoloke.com"
-      },
-      // image: "/evoloke.png",
-      featured: true
+      }
     },
     {
       title: "ezl",
       description: "A student productivity platform which uses AI to auto optimize student calenders for work and classes. It uses modular concept to allow students to integrate their email, canvas and calender data seamlessly to offer a rich, interactive unified environment.",
       tech: ["Next.js", "Supabase", "TailwindCSS", "Langchain", "FastAPI"],
       links: {
-        // github: "https://github.com/mandipadk/ezl",
         live: "https://ezl.vercel.app"
       },
-      image: "/ezl.png",
-      featured: true
+      image: "/ezl.png"
     },
     {
       title: "Ottomail",
       description: "An innovative email management system that uses AI to categorize and prioritize emails effectively, enhancing productivity and user experience with its intuitive interface.",
       tech: ["Vite", "FastAPI", "AWS Lambda", "Supabase", "TailwindCSS"],
       links: {
-        // github: "https://github.com/mandipadk/ottomail",
         live: "https://mailmate.site"
       },
-      image: "/ottomail.png",
-      featured: true
+      image: "/ottomail.png"
     },
     {
       title: "TrashTalk",
@@ -116,15 +120,6 @@ export default function Projects() {
       }
     }
   ];
-
-  // Create individual transforms for each project
-  const transforms = Array.from({ length: projects.length }, (_, i) => {
-    return useTransform(
-      scrollYProgress,
-      [i * 0.15, 0.1 + i * 0.15],
-      [0, 1]
-    );
-  });
 
   const visibleProjects = showAllProjects ? projects : projects.filter(p => p.featured);
 
@@ -162,7 +157,6 @@ export default function Projects() {
 
   return (
     <section
-      ref={containerRef}
       id="projects"
       className="relative min-h-screen bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,1)_0%,rgba(0,0,0,0.9)_100%)] py-24 overflow-hidden"
     >
@@ -190,15 +184,12 @@ export default function Projects() {
 
         {/* Projects Stack */}
         <div className="relative space-y-24 md:space-y-32">
-          {visibleProjects.map((project, index) => {
-            const progress = transforms[projects.indexOf(project)];
-
+          {visibleProjects.map((project) => {
             const isHovered = hoveredProject === project.title;
 
             return (
               <motion.div
                 key={project.title}
-                style={{ opacity: progress }}
                 className="relative"
                 onMouseEnter={() => setHoveredProject(project.title)}
                 onMouseLeave={() => setHoveredProject(null)}
