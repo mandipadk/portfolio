@@ -29,6 +29,7 @@ export default function Projects() {
       links: {
         github: "https://github.com/mandipadk/kavi"
       },
+      image: "/kavi.png",
       featured: true
     },
     {
@@ -38,6 +39,7 @@ export default function Projects() {
       links: {
         github: "https://github.com/mandipadk/bioresearch"
       },
+      image: "/bioresearch.png",
       featured: true
     },
     {
@@ -47,6 +49,7 @@ export default function Projects() {
       links: {
         github: "https://github.com/mandipadk/searchprobe"
       },
+      image: "/searchprobe.png",
       featured: true
     },
     {
@@ -56,6 +59,7 @@ export default function Projects() {
       links: {
         github: "https://github.com/mandipadk/nepl-lm"
       },
+      image: "/nepl-lm.png",
       featured: true
     },
     {
@@ -65,6 +69,7 @@ export default function Projects() {
       links: {
         github: "https://github.com/mandipadk/optimal-transport-studio"
       },
+      image: "/optimal-transport-studio.png",
       featured: true
     },
     {
@@ -82,7 +87,8 @@ export default function Projects() {
       tech: ["React", "Node.js", "PostgreSQL", "Supabase", "TailwindCSS", "Redis"],
       links: {
         live: "https://evoloke.com"
-      }
+      },
+      image: "/evoloke.png"
     },
     {
       title: "ezl",
@@ -108,7 +114,8 @@ export default function Projects() {
       tech: ["React", "TailwindCSS", "TensorFlow", "Python", "WebRTC"],
       links: {
         github: "https://github.com/mandipadk/trashtalk"
-      }
+      },
+      image: "/trashtalk.png"
     },
     {
       title: "DAppStore",
@@ -117,7 +124,8 @@ export default function Projects() {
       links: {
         github: "https://github.com/mandipadk/dappstore",
         live: "andipadk.github.io/DAppStore/"
-      }
+      },
+      image: "/dappstore.png"
     }
   ];
 
